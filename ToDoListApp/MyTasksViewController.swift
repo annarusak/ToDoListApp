@@ -1,6 +1,6 @@
 import UIKit
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class MyTasksViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     let backgroundColor = UIColor(red: 234/255, green: 206/255, blue: 187/255, alpha: 1)
     
@@ -11,7 +11,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         view.backgroundColor = backgroundColor
         createTasksTableView()
         
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddTask))
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
     }
     
     private func createTasksTableView() {
@@ -25,19 +25,12 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.separatorInset = .init(top: 0, left: 13, bottom: 0, right: 13)
     }
 
-    @objc private func didTapAddTask() {
-        let alert = UIAlertController(title: "New Task", message: "Enter new task", preferredStyle: .alert)
-        alert.addTextField(configurationHandler: nil)
-        alert.addAction(UIAlertAction(title: "Add", style: .cancel, handler: { _ in
-            guard let textField = alert.textFields?.first, let text = textField.text, !text.isEmpty else {
-                return
-            }
-            print(text)
-        }))
-        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { _ in
-            alert.dismiss(animated: true, completion: nil)
-        }))
-        present(alert, animated: true, completion: nil)
+    @objc private func didTapAdd() {
+        let modalVC = NewTaskViewController()
+        modalVC.modalPresentationStyle = .custom
+        modalVC.transitioningDelegate = self
+
+        present(modalVC, animated: true, completion: nil)
     }
     
     // MARK: UITableViewDataSource
@@ -61,3 +54,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
 }
 
+
+extension MyTasksViewController: UIViewControllerTransitioningDelegate {
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        return PresentationModalController(presentedViewController: presented, presenting: presenting)
+    }
+}
