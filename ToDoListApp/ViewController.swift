@@ -1,10 +1,3 @@
-//
-//  ViewController.swift
-//  ToDoListApp
-//
-//  Created by Анна on 8.12.23.
-//
-
 import UIKit
 
 class ViewController: UIViewController {
