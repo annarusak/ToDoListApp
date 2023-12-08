@@ -34,6 +34,9 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
             }
             print(text)
         }))
+        alert.addAction(UIAlertAction(title: "Cancel", style: .destructive, handler: { _ in
+            alert.dismiss(animated: true, completion: nil)
+        }))
         present(alert, animated: true, completion: nil)
     }
     
