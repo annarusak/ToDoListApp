@@ -10,6 +10,8 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         title = "My Tasks"
         view.backgroundColor = backgroundColor
         createTasksTableView()
+        
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAddTask))
     }
     
     private func createTasksTableView() {
@@ -23,6 +25,18 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         tableView.separatorInset = .init(top: 0, left: 13, bottom: 0, right: 13)
     }
 
+    @objc private func didTapAddTask() {
+        let alert = UIAlertController(title: "New Task", message: "Enter new task", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: nil)
+        alert.addAction(UIAlertAction(title: "Add", style: .cancel, handler: { _ in
+            guard let textField = alert.textFields?.first, let text = textField.text, !text.isEmpty else {
+                return
+            }
+            print(text)
+        }))
+        present(alert, animated: true, completion: nil)
+    }
+    
     // MARK: UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return 3
