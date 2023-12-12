@@ -1,13 +1,13 @@
 import UIKit
 
-class MyTasksViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ToDoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let backgroundColor = UIColor(red: 234/255, green: 206/255, blue: 187/255, alpha: 1)
+    let backgroundColor = UIColor(red: 66/255, green: 66/255, blue: 80/255, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "My Tasks"
+        title = "To Do List"
         view.backgroundColor = backgroundColor
         createTasksTableView()
         
@@ -26,11 +26,9 @@ class MyTasksViewController: UIViewController, UITableViewDelegate, UITableViewD
     }
 
     @objc private func didTapAdd() {
-        let modalVC = NewTaskViewController()
-        modalVC.modalPresentationStyle = .custom
-        modalVC.transitioningDelegate = self
-
-        present(modalVC, animated: true, completion: nil)
+        let newTaskVC = NewTaskViewController()
+        newTaskVC.modalPresentationStyle = .overCurrentContext
+        present(newTaskVC, animated: true, completion: nil)
     }
     
     // MARK: UITableViewDataSource
@@ -52,11 +50,4 @@ class MyTasksViewController: UIViewController, UITableViewDelegate, UITableViewD
         return 50.0
     }
 
-}
-
-
-extension MyTasksViewController: UIViewControllerTransitioningDelegate {
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return PresentationModalController(presentedViewController: presented, presenting: presenting)
-    }
 }
