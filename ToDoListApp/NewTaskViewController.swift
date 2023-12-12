@@ -85,6 +85,7 @@ class NewTaskViewController: UIViewController {
         
         setupUI()
         setupGesture()
+        observeKeyboard()
         addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
         cancelButton.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
     }
@@ -144,6 +145,22 @@ class NewTaskViewController: UIViewController {
     private func setupGesture() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissModalViewController))
         view.addGestureRecognizer(tapGesture)
+    }
+    
+    private func observeKeyboard() {
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+    }
+    
+    @objc private func keyboardWillShow(_ notification: Notification) {
+        let keyboardHeight = getKeyboardHeight(notification: notification)
+        print("keyboardHeight: \(keyboardHeight)")
+        
+        modalTemplate.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardHeight + 30).isActive = true
+    }
+    
+    private func getKeyboardHeight(notification: Notification) -> CGFloat {
+        guard let keyboardHeight = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue.height else { return 0 }
+        return keyboardHeight
     }
     
     @objc private func dismissModalViewController() {
