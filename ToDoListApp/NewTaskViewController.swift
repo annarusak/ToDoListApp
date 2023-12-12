@@ -84,6 +84,7 @@ class NewTaskViewController: UIViewController {
         super.viewDidLoad()
         
         setupUI()
+        setupGesture()
         addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
         cancelButton.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
     }
@@ -138,6 +139,15 @@ class NewTaskViewController: UIViewController {
             cancelButton.heightAnchor.constraint(equalToConstant: 30),
             cancelButton.widthAnchor.constraint(equalToConstant: 30)
         ])
+    }
+    
+    private func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissModalViewController))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc private func dismissModalViewController() {
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc private func segmentedControlValueChanged(_ sender: UISegmentedControl) {
