@@ -13,6 +13,7 @@ class ToDoListViewController: UIViewController, UITableViewDelegate, UITableView
         
         tasksTableView.delegate = self
         tasksTableView.dataSource = self
+        updateItemTableView()
         
         ToDoListItemManager.addOnListChangeDelegate(delegate: updateItemTableView)
     }
