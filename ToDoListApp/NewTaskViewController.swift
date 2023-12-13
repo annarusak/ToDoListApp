@@ -1,12 +1,6 @@
 import UIKit
 
 class NewTaskViewController: UIViewController {
-    
-    let backgroundColor = UIColor(red: 66/255, green: 66/255, blue: 80/255, alpha: 1)
-    let detailsColor = UIColor(red: 86/255, green: 188/255, blue: 244/255, alpha: 1)
-    let highPriorityColor = UIColor(red: 255/255, green: 105/255, blue: 81/255, alpha: 1)
-    let mediumPriorityColor = UIColor(red: 255/255, green: 172/255, blue: 19/255, alpha: 1)
-    let lowPriorityColor = UIColor(red: 30/255, green: 185/255, blue: 128/255, alpha: 1)
         
     private lazy var backgroundView: UIView = {
         let backView = UIView(frame: view.frame)
@@ -16,7 +10,7 @@ class NewTaskViewController: UIViewController {
     
     private lazy var modalTemplate: UIView = {
         let backView = UIView()
-        backView.backgroundColor = backgroundColor
+        backView.backgroundColor = .grayBackgroundColor
         backView.layer.cornerRadius = 25
         return backView
     }()
@@ -26,7 +20,7 @@ class NewTaskViewController: UIViewController {
         segmentedControl.addTarget(self, action: #selector(segmentedControlValueChanged), for: .valueChanged)
         segmentedControl.selectedSegmentIndex = 1
         segmentedControl.backgroundColor = UIColor(white: 1, alpha: 0.5)
-        segmentedControl.selectedSegmentTintColor = detailsColor
+        segmentedControl.selectedSegmentTintColor = .blueDetailsColor
         return segmentedControl
     }()
     
@@ -53,31 +47,8 @@ class NewTaskViewController: UIViewController {
         return label
     }()
     
-    private lazy var addButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Add Task", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 18)
-        button.layer.borderWidth = 2.5
-        button.layer.borderColor = detailsColor.cgColor
-        button.layer.cornerRadius = 12
-        button.layer.masksToBounds = true
-        button.backgroundColor = .clear
-        button.setTitleColor(detailsColor, for: .normal)
-        return button
-    }()
-    
-    private lazy var cancelButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("X", for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: 14)
-        button.layer.borderWidth = 2.5
-        button.layer.borderColor = detailsColor.cgColor
-        button.layer.cornerRadius = 15
-        button.layer.masksToBounds = true
-        button.backgroundColor = .clear
-        button.setTitleColor(detailsColor, for: .normal)
-        return button
-    }()
+    private lazy var addButton = createButton(title: "Add Task", fontSize: 18, cornerRadius: 12)
+    private lazy var cancelButton = createButton(title: "X", fontSize: 14, cornerRadius: 15)
         
     
     override func viewDidLoad() {
@@ -90,6 +61,19 @@ class NewTaskViewController: UIViewController {
         cancelButton.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
     }
     
+    
+    private func createButton(title: String, fontSize: CGFloat, cornerRadius: CGFloat) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(title, for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: fontSize)
+        button.layer.borderWidth = 2.5
+        button.layer.borderColor = UIColor.blueDetailsColor.cgColor
+        button.layer.cornerRadius = cornerRadius
+        button.layer.masksToBounds = true
+        button.backgroundColor = .clear
+        button.setTitleColor(.blueDetailsColor, for: .normal)
+        return button
+    }
     
     private func setupUI() {
         view.backgroundColor = .clear

@@ -2,17 +2,15 @@ import UIKit
 
 class ToDoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
-    let backgroundColor = UIColor(red: 66/255, green: 66/255, blue: 80/255, alpha: 1)
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        title = "To Do List"
-        view.backgroundColor = backgroundColor
+        view.backgroundColor = .grayBackgroundColor
         createTasksTableView()
-        
-        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(didTapAdd))
+        setupNavigationBar()
     }
+    
     
     private func createTasksTableView() {
         let tableView = UITableView()
@@ -22,7 +20,31 @@ class ToDoListViewController: UIViewController, UITableViewDelegate, UITableView
         tableView.delegate = self
         tableView.dataSource = self
         tableView.frame = view.bounds
+        tableView.separatorColor = .white
         tableView.separatorInset = .init(top: 0, left: 13, bottom: 0, right: 13)
+    }
+    
+    private func createRightBarButton() -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle("  Add Task  ", for: .normal)
+        button.titleLabel?.font = .systemFont(ofSize: 18)
+        button.layer.borderWidth = 2.5
+        button.layer.borderColor = UIColor.blueDetailsColor.cgColor
+        button.layer.cornerRadius = 10
+        button.layer.masksToBounds = true
+        button.backgroundColor = .clear
+        button.setTitleColor(.blueDetailsColor, for: .normal)
+        button.addTarget(self, action: #selector(didTapAdd), for: .touchUpInside)
+        return button
+    }
+    
+    private func setupNavigationBar() {
+        title = "To Do List"
+        navigationController?.navigationBar.barStyle = UIBarStyle.black
+        navigationController?.navigationBar.tintColor = UIColor.white
+        
+        let customBarButtonItem = UIBarButtonItem(customView: createRightBarButton())
+        navigationItem.rightBarButtonItem = customBarButtonItem
     }
 
     @objc private func didTapAdd() {
@@ -41,6 +63,7 @@ class ToDoListViewController: UIViewController, UITableViewDelegate, UITableView
         cell.backgroundColor = .clear
         var content = cell.defaultContentConfiguration()
         content.text = "My Task"
+        content.textProperties.color = .white
         cell.contentConfiguration = content
         return cell
     }
