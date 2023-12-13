@@ -18,6 +18,7 @@
 		F46C04812B233C99008C34CE /* ToDoListItem+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C047F2B233C99008C34CE /* ToDoListItem+CoreDataProperties.swift */; };
 		F46C04882B238161008C34CE /* NewTaskViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C04872B238161008C34CE /* NewTaskViewController.swift */; };
 		F4C0CEE22B29C3E300B1E63C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C0CEE12B29C3E300B1E63C /* ColorExtension.swift */; };
+		F4C0CEE62B2A11F000B1E63C /* ToDoListItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C0CEE52B2A11F000B1E63C /* ToDoListItemManager.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		F46C047F2B233C99008C34CE /* ToDoListItem+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ToDoListItem+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		F46C04872B238161008C34CE /* NewTaskViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewTaskViewController.swift; sourceTree = "<group>"; };
 		F4C0CEE12B29C3E300B1E63C /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
+		F4C0CEE52B2A11F000B1E63C /* ToDoListItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListItemManager.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 				F46C04692B23373C008C34CE /* SceneDelegate.swift */,
 				F46C046B2B23373C008C34CE /* ToDoListViewController.swift */,
 				F46C04872B238161008C34CE /* NewTaskViewController.swift */,
+				F4C0CEE52B2A11F000B1E63C /* ToDoListItemManager.swift */,
 				F4C0CEE12B29C3E300B1E63C /* ColorExtension.swift */,
 				F46C046D2B23373C008C34CE /* Main.storyboard */,
 				F46C04732B23373D008C34CE /* Assets.xcassets */,
@@ -164,6 +167,7 @@
 				F46C046C2B23373C008C34CE /* ToDoListViewController.swift in Sources */,
 				F46C04882B238161008C34CE /* NewTaskViewController.swift in Sources */,
 				F46C04682B23373C008C34CE /* AppDelegate.swift in Sources */,
+				F4C0CEE62B2A11F000B1E63C /* ToDoListItemManager.swift in Sources */,
 				F4C0CEE22B29C3E300B1E63C /* ColorExtension.swift in Sources */,
 				F46C046A2B23373C008C34CE /* SceneDelegate.swift in Sources */,
 				F46C04802B233C99008C34CE /* ToDoListItem+CoreDataClass.swift in Sources */,
