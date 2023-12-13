@@ -2,26 +2,31 @@ import UIKit
 
 class ToDoListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
+    private var tasks = [ToDoListItem]()
+    private lazy var tasksTableView = createTasksTableView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         view.backgroundColor = .grayBackgroundColor
-        createTasksTableView()
         setupNavigationBar()
+        
+        tasksTableView.delegate = self
+        tasksTableView.dataSource = self
+        
+        ToDoListItemManager.addOnListChangeDelegate(delegate: updateItemTableView)
     }
     
     
-    private func createTasksTableView() {
+    private func createTasksTableView() -> UITableView {
         let tableView = UITableView()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         view.addSubview(tableView)
         tableView.backgroundColor = .clear
-        tableView.delegate = self
-        tableView.dataSource = self
         tableView.frame = view.bounds
         tableView.separatorColor = .white
         tableView.separatorInset = .init(top: 0, left: 13, bottom: 0, right: 13)
+        return tableView
     }
     
     private func createRightBarButton() -> UIButton {
@@ -53,22 +58,29 @@ class ToDoListViewController: UIViewController, UITableViewDelegate, UITableView
         present(newTaskVC, animated: true, completion: nil)
     }
     
-    // MARK: UITableViewDataSource
+    // MARK: - CoreData
+    private func updateItemTableView() {
+        tasks = ToDoListItemManager.getAllItems()
+        tasksTableView.reloadData()
+    }
+    
+    // MARK: - UITableViewDataSource
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 3
+        return tasks.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let task = tasks[indexPath.row]
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
         cell.backgroundColor = .clear
         var content = cell.defaultContentConfiguration()
-        content.text = "My Task"
+        content.text = task.taskName
         content.textProperties.color = .white
         cell.contentConfiguration = content
         return cell
     }
     
-    // MARK: UITableViewDelegate
+    // MARK:-  UITableViewDelegate
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return 50.0
     }

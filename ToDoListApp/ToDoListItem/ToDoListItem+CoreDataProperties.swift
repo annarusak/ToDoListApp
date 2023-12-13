@@ -10,6 +10,7 @@ extension ToDoListItem {
 
     @NSManaged public var taskName: String?
     @NSManaged public var createdAt: Date?
+    @NSManaged public var priority: String?
 
 }
 

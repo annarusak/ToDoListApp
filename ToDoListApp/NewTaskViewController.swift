@@ -1,7 +1,7 @@
 import UIKit
 
 class NewTaskViewController: UIViewController {
-        
+    
     private lazy var backgroundView: UIView = {
         let backView = UIView(frame: view.frame)
         backView.backgroundColor = UIColor(white: 0, alpha: 0.4)
@@ -136,9 +136,7 @@ class NewTaskViewController: UIViewController {
     }
     
     @objc private func keyboardWillShow(_ notification: Notification) {
-        let keyboardHeight = getKeyboardHeight(notification: notification)
-        print("keyboardHeight: \(keyboardHeight)")
-        
+        let keyboardHeight = getKeyboardHeight(notification: notification)        
         modalTemplate.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -keyboardHeight + 30).isActive = true
     }
     
@@ -169,6 +167,10 @@ class NewTaskViewController: UIViewController {
     
     @objc private func didTapAddButton() {
         print("Add Task")
+        guard let textField = newTaskTextField.text, !textField.isEmpty else { return }
+        
+        ToDoListItemManager.createItem(name: textField, priority: "")
+        self.dismiss(animated: true, completion: nil)
     }
     
     @objc private func didTapCancelButton() {
