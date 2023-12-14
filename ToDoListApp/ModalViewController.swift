@@ -1,6 +1,13 @@
 import UIKit
 
-class NewTaskViewController: UIViewController {
+class ModalViewController: UIViewController {
+    
+    var taskItemToUpdate: ToDoListItem?
+    
+    enum typeOfModalController {
+        case newTask
+        case editTask
+    }
     
     private lazy var backgroundView: UIView = {
         let backView = UIView(frame: view.frame)
@@ -24,9 +31,9 @@ class NewTaskViewController: UIViewController {
         return segmentedControl
     }()
     
-    private lazy var newTaskTextField: UITextField = {
+    private lazy var taskTextField: UITextField = {
         let textField = UITextField(frame: .zero)
-        textField.placeholder = "Enter a new task"
+        textField.placeholder = ""
         textField.backgroundColor = .white
         textField.layer.cornerRadius = 12
         textField.keyboardType = .default
@@ -47,18 +54,43 @@ class NewTaskViewController: UIViewController {
         return label
     }()
     
-    private lazy var addButton = createButton(title: "Add Task", fontSize: 18, cornerRadius: 12)
+    private lazy var saveTaskButton = createButton(title: "", fontSize: 18, cornerRadius: 12)
     private lazy var cancelButton = createButton(title: "X", fontSize: 14, cornerRadius: 15)
         
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    init() {
+        super.init(nibName: nil, bundle: nil)
         
         setupUI()
         setupGesture()
         observeKeyboard()
-        addButton.addTarget(self, action: #selector(didTapAddButton), for: .touchUpInside)
+        
+        taskTextField.placeholder = "Enter a new task"
+        saveTaskButton.setTitle("Add task", for: .normal)
+        
         cancelButton.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
+        saveTaskButton.addTarget(self, action: #selector(didTapSaveTaskButton), for: .touchUpInside)
+    }
+    
+    init(taskToUpdate: ToDoListItem) {
+        super.init(nibName: nil, bundle: nil)
+        
+        taskItemToUpdate = taskToUpdate
+        
+        setupUI()
+        setupGesture()
+        observeKeyboard()
+        
+        taskTextField.placeholder = "Edit your task"
+        taskTextField.text = taskItemToUpdate?.taskName
+        saveTaskButton.setTitle("Save", for: .normal)
+        
+        cancelButton.addTarget(self, action: #selector(didTapCancelButton), for: .touchUpInside)
+        saveTaskButton.addTarget(self, action: #selector(didTapSaveTaskButton), for: .touchUpInside)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
     }
     
     
@@ -84,17 +116,17 @@ class NewTaskViewController: UIViewController {
         view.addSubview(backgroundView)
         view.addSubview(modalTemplate)
         modalTemplate.addSubview(prioritySegmentedControl)
-        modalTemplate.addSubview(addButton)
+        modalTemplate.addSubview(saveTaskButton)
         modalTemplate.addSubview(priorityLabel)
-        modalTemplate.addSubview(newTaskTextField)
+        modalTemplate.addSubview(taskTextField)
         modalTemplate.addSubview(cancelButton)
         
         modalTemplate.translatesAutoresizingMaskIntoConstraints = false
         prioritySegmentedControl.translatesAutoresizingMaskIntoConstraints = false
-        addButton.translatesAutoresizingMaskIntoConstraints = false
+        saveTaskButton.translatesAutoresizingMaskIntoConstraints = false
         cancelButton.translatesAutoresizingMaskIntoConstraints = false
         priorityLabel.translatesAutoresizingMaskIntoConstraints = false
-        newTaskTextField.translatesAutoresizingMaskIntoConstraints = false
+        taskTextField.translatesAutoresizingMaskIntoConstraints = false
         
         NSLayoutConstraint.activate([
             modalTemplate.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -102,22 +134,22 @@ class NewTaskViewController: UIViewController {
             modalTemplate.rightAnchor.constraint(equalTo: view.rightAnchor),
             modalTemplate.heightAnchor.constraint(equalToConstant: view.frame.height / 2.8),
             
-            newTaskTextField.bottomAnchor.constraint(equalTo: modalTemplate.centerYAnchor, constant: 20),
-            newTaskTextField.centerXAnchor.constraint(equalTo: modalTemplate.centerXAnchor),
-            newTaskTextField.heightAnchor.constraint(equalToConstant: 55),
-            newTaskTextField.widthAnchor.constraint(equalTo: modalTemplate.widthAnchor, multiplier: 0.85),
+            taskTextField.bottomAnchor.constraint(equalTo: modalTemplate.centerYAnchor, constant: 20),
+            taskTextField.centerXAnchor.constraint(equalTo: modalTemplate.centerXAnchor),
+            taskTextField.heightAnchor.constraint(equalToConstant: 55),
+            taskTextField.widthAnchor.constraint(equalTo: modalTemplate.widthAnchor, multiplier: 0.85),
             
             prioritySegmentedControl.centerXAnchor.constraint(equalTo: modalTemplate.centerXAnchor),
-            prioritySegmentedControl.bottomAnchor.constraint(equalTo: newTaskTextField.topAnchor, constant: -30),
+            prioritySegmentedControl.bottomAnchor.constraint(equalTo: taskTextField.topAnchor, constant: -30),
             prioritySegmentedControl.widthAnchor.constraint(equalToConstant: 200),
             
             priorityLabel.centerXAnchor.constraint(equalTo: modalTemplate.centerXAnchor),
             priorityLabel.bottomAnchor.constraint(equalTo: prioritySegmentedControl.topAnchor, constant: -10),
 
-            addButton.topAnchor.constraint(equalTo: newTaskTextField.bottomAnchor, constant: 20),
-            addButton.centerXAnchor.constraint(equalTo: modalTemplate.centerXAnchor),
-            addButton.heightAnchor.constraint(equalToConstant: 55),
-            addButton.widthAnchor.constraint(equalTo: modalTemplate.widthAnchor, multiplier: 0.85),
+            saveTaskButton.topAnchor.constraint(equalTo: taskTextField.bottomAnchor, constant: 20),
+            saveTaskButton.centerXAnchor.constraint(equalTo: modalTemplate.centerXAnchor),
+            saveTaskButton.heightAnchor.constraint(equalToConstant: 55),
+            saveTaskButton.widthAnchor.constraint(equalTo: modalTemplate.widthAnchor, multiplier: 0.85),
             
             cancelButton.centerYAnchor.constraint(equalTo: modalTemplate.topAnchor, constant: 30),
             cancelButton.centerXAnchor.constraint(equalTo: modalTemplate.rightAnchor, constant: -30),
@@ -165,11 +197,17 @@ class NewTaskViewController: UIViewController {
         }
     }
     
-    @objc private func didTapAddButton() {
-        print("Add Task")
-        guard let textField = newTaskTextField.text, !textField.isEmpty else { return }
-        
-        ToDoListItemManager.createItem(name: textField, priority: "")
+    @objc private func didTapSaveTaskButton() {
+        if (taskItemToUpdate != nil) {
+            print("Update Task")
+            guard let taskItemToUpdate = taskItemToUpdate else { return }
+            guard let newTaskName = taskTextField.text, !newTaskName.isEmpty else { return }
+            ToDoListItemManager.updateItem(item: taskItemToUpdate, newName: newTaskName, newPriority: "")
+        } else {
+            print("Create Task")
+            guard let textField = taskTextField.text, !textField.isEmpty else { return }
+            ToDoListItemManager.createItem(name: textField, priority: "")
+        }
         self.dismiss(animated: true, completion: nil)
     }
     

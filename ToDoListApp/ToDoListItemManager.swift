@@ -33,4 +33,24 @@ class ToDoListItemManager {
         }
     }
     
+    static func deleteItem(item: ToDoListItem) {
+        context.delete(item)
+        do {
+            try context.save()
+            onListChangeDelegate?()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
+    static func updateItem(item: ToDoListItem, newName: String, newPriority: String) {
+        item.taskName = newName
+        do {
+            try context.save()
+            onListChangeDelegate?()
+        } catch {
+            print(error.localizedDescription)
+        }
+    }
+    
 }

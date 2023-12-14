@@ -5,6 +5,7 @@ class ToDoListViewController: UIViewController, UITableViewDelegate, UITableView
     private var tasks = [ToDoListItem]()
     private lazy var tasksTableView = createTasksTableView()
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -54,7 +55,7 @@ class ToDoListViewController: UIViewController, UITableViewDelegate, UITableView
     }
 
     @objc private func didTapAdd() {
-        let newTaskVC = NewTaskViewController()
+        let newTaskVC = ModalViewController()
         newTaskVC.modalPresentationStyle = .overCurrentContext
         present(newTaskVC, animated: true, completion: nil)
     }
@@ -79,6 +80,29 @@ class ToDoListViewController: UIViewController, UITableViewDelegate, UITableView
         content.textProperties.color = .white
         cell.contentConfiguration = content
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        tableView.deselectRow(at: indexPath, animated: true)
+        let task = tasks[indexPath.row]
+
+        let sheet = UIAlertController(title: "Choose option for your task", message: nil, preferredStyle: .actionSheet)
+        
+        sheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        
+        sheet.addAction(UIAlertAction(title: "Edit", style: .default, handler: { _ in
+            let editTaskVC = ModalViewController(taskToUpdate: task)
+            editTaskVC.modalPresentationStyle = .overCurrentContext
+            self.present(editTaskVC, animated: true, completion: nil)
+            print(task.taskName!)
+        }))
+        
+        sheet.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+            ToDoListItemManager.deleteItem(item: task)
+        }))
+        
+        present(sheet, animated: true, completion: nil)
     }
     
     // MARK:-  UITableViewDelegate
