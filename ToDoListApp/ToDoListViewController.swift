@@ -22,7 +22,7 @@ class ToDoListViewController: UIViewController, UITableViewDelegate, UITableView
     
     private func createTasksTableView() -> UITableView {
         let tableView = UITableView()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CheckboxTableViewCell.self, forCellReuseIdentifier: "CheckboxCell")
         view.addSubview(tableView)
         tableView.backgroundColor = .clear
         tableView.frame = view.bounds
@@ -73,18 +73,17 @@ class ToDoListViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let task = tasks[indexPath.row]
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "CheckboxCell", for: indexPath) as! CheckboxTableViewCell
         cell.backgroundColor = .clear
-        var content = cell.defaultContentConfiguration()
-        content.text = task.taskName
-        content.textProperties.color = .white
-        cell.contentConfiguration = content
+        cell.label.text = task.taskName
+        cell.label.textColor = .white
+        cell.checkboxButton.isSelected = false
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         tableView.deselectRow(at: indexPath, animated: true)
+        
         let task = tasks[indexPath.row]
 
         let sheet = UIAlertController(title: "Choose option for your task", message: nil, preferredStyle: .actionSheet)

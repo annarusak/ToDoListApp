@@ -19,6 +19,7 @@
 		F46C04882B238161008C34CE /* ModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C04872B238161008C34CE /* ModalViewController.swift */; };
 		F4C0CEE22B29C3E300B1E63C /* ColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C0CEE12B29C3E300B1E63C /* ColorExtension.swift */; };
 		F4C0CEE62B2A11F000B1E63C /* ToDoListItemManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4C0CEE52B2A11F000B1E63C /* ToDoListItemManager.swift */; };
+		F4DC9C612B2F7432004E1EA9 /* CheckboxTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DC9C602B2F7432004E1EA9 /* CheckboxTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +37,7 @@
 		F46C04872B238161008C34CE /* ModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModalViewController.swift; sourceTree = "<group>"; };
 		F4C0CEE12B29C3E300B1E63C /* ColorExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorExtension.swift; sourceTree = "<group>"; };
 		F4C0CEE52B2A11F000B1E63C /* ToDoListItemManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoListItemManager.swift; sourceTree = "<group>"; };
+		F4DC9C602B2F7432004E1EA9 /* CheckboxTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckboxTableViewCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -75,6 +77,7 @@
 				F46C04872B238161008C34CE /* ModalViewController.swift */,
 				F4C0CEE52B2A11F000B1E63C /* ToDoListItemManager.swift */,
 				F4C0CEE12B29C3E300B1E63C /* ColorExtension.swift */,
+				F4DC9C602B2F7432004E1EA9 /* CheckboxTableViewCell.swift */,
 				F46C046D2B23373C008C34CE /* Main.storyboard */,
 				F46C04732B23373D008C34CE /* Assets.xcassets */,
 				F46C04752B23373D008C34CE /* LaunchScreen.storyboard */,
@@ -170,6 +173,7 @@
 				F4C0CEE62B2A11F000B1E63C /* ToDoListItemManager.swift in Sources */,
 				F4C0CEE22B29C3E300B1E63C /* ColorExtension.swift in Sources */,
 				F46C046A2B23373C008C34CE /* SceneDelegate.swift in Sources */,
+				F4DC9C612B2F7432004E1EA9 /* CheckboxTableViewCell.swift in Sources */,
 				F46C04802B233C99008C34CE /* ToDoListItem+CoreDataClass.swift in Sources */,
 				F46C04812B233C99008C34CE /* ToDoListItem+CoreDataProperties.swift in Sources */,
 				F46C04722B23373C008C34CE /* ToDoListApp.xcdatamodeld in Sources */,
