@@ -77,6 +77,18 @@ class ToDoListViewController: UIViewController, UITableViewDelegate, UITableView
         cell.backgroundColor = .clear
         cell.label.text = task.taskName
         cell.label.textColor = .white
+        
+        switch task.priority {
+        case TaskPriority.low.rawValue:
+            cell.checkboxButton.tintColor = .greenLowPriorityColor
+        case TaskPriority.medium.rawValue:
+            cell.checkboxButton.tintColor = .yellowMediumPriorityColor
+        case TaskPriority.high.rawValue:
+            cell.checkboxButton.tintColor = .redHighPriorityColor
+        default:
+            cell.checkboxButton.tintColor = .white
+        }
+        
         cell.checkboxButton.isSelected = false
         return cell
     }

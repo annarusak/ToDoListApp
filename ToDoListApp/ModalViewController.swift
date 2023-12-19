@@ -202,11 +202,11 @@ class ModalViewController: UIViewController {
             print("Update Task")
             guard let taskItemToUpdate = taskItemToUpdate else { return }
             guard let newTaskName = taskTextField.text, !newTaskName.isEmpty else { return }
-            ToDoListItemManager.updateItem(item: taskItemToUpdate, newName: newTaskName, newPriority: "")
+            ToDoListItemManager.updateItem(item: taskItemToUpdate, newName: newTaskName, newPriority: definePriority())
         } else {
             print("Create Task")
             guard let textField = taskTextField.text, !textField.isEmpty else { return }
-            ToDoListItemManager.createItem(name: textField, priority: "")
+            ToDoListItemManager.createItem(name: textField, priority: definePriority())
         }
         self.dismiss(animated: true, completion: nil)
     }
@@ -214,6 +214,20 @@ class ModalViewController: UIViewController {
     @objc private func didTapCancelButton() {
         print("Cancel")
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    private func definePriority() -> String {
+        let selectedPriority = prioritySegmentedControl.selectedSegmentIndex
+        switch selectedPriority {
+        case 0:
+            return TaskPriority.low.rawValue
+        case 1:
+            return TaskPriority.medium.rawValue
+        case 2:
+            return TaskPriority.high.rawValue
+        default:
+            return ""
+        }
     }
     
 }

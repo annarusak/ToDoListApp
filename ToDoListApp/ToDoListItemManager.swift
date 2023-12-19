@@ -45,6 +45,7 @@ class ToDoListItemManager {
     
     static func updateItem(item: ToDoListItem, newName: String, newPriority: String) {
         item.taskName = newName
+        item.priority = newPriority
         do {
             try context.save()
             onListChangeDelegate?()
