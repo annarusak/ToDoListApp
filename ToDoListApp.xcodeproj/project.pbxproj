@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		F4690F722B31C97C00317695 /* PriorityEnum.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4690F712B31C97C00317695 /* PriorityEnum.swift */; };
 		F46C04682B23373C008C34CE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C04672B23373C008C34CE /* AppDelegate.swift */; };
 		F46C046A2B23373C008C34CE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C04692B23373C008C34CE /* SceneDelegate.swift */; };
 		F46C046C2B23373C008C34CE /* ToDoListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46C046B2B23373C008C34CE /* ToDoListViewController.swift */; };
@@ -23,6 +24,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		F4690F712B31C97C00317695 /* PriorityEnum.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriorityEnum.swift; sourceTree = "<group>"; };
 		F46C04642B23373B008C34CE /* ToDoListApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoListApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F46C04672B23373C008C34CE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F46C04692B23373C008C34CE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -78,6 +80,7 @@
 				F4C0CEE52B2A11F000B1E63C /* ToDoListItemManager.swift */,
 				F4C0CEE12B29C3E300B1E63C /* ColorExtension.swift */,
 				F4DC9C602B2F7432004E1EA9 /* CheckboxTableViewCell.swift */,
+				F4690F712B31C97C00317695 /* PriorityEnum.swift */,
 				F46C046D2B23373C008C34CE /* Main.storyboard */,
 				F46C04732B23373D008C34CE /* Assets.xcassets */,
 				F46C04752B23373D008C34CE /* LaunchScreen.storyboard */,
@@ -171,6 +174,7 @@
 				F46C04882B238161008C34CE /* ModalViewController.swift in Sources */,
 				F46C04682B23373C008C34CE /* AppDelegate.swift in Sources */,
 				F4C0CEE62B2A11F000B1E63C /* ToDoListItemManager.swift in Sources */,
+				F4690F722B31C97C00317695 /* PriorityEnum.swift in Sources */,
 				F4C0CEE22B29C3E300B1E63C /* ColorExtension.swift in Sources */,
 				F46C046A2B23373C008C34CE /* SceneDelegate.swift in Sources */,
 				F4DC9C612B2F7432004E1EA9 /* CheckboxTableViewCell.swift in Sources */,
